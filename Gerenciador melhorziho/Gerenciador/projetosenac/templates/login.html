@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <title>
+        {% block titulo %}Gerenciador{% endblock %}
+    </title>
+</head>
+<body>
+
+<nav>
+    <div class="nav-brand">
+        <span>PyNotes</span>
+        <small>Suas notas e tarefas💌</small>
+    </div>
+    <ul>
+        <li><a href="#">Desings</a></li>
+        <li><a href="#">Dicas</a></li>
+    </ul>
+</nav>
+
+<hr>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for categoria, mensagem in messages %}
+            <div class="flash {{ categoria }}">{{ mensagem }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% block body %}
+
+<header>
+    <h1>Bem-vindo(a) de volta, querido(a) cliente! ( •̀ ω •́ )✧</h1>
+</header>
+
+<main>
+    <section class="login">
+        <h2>Entrar na conta</h2>
+
+        <form action="{{ url_for('homepage') }}" method="POST">
+            {{ form.hidden_tag() }}
+
+            <label>E-mail</label>
+            {{ form.email() }}
+
+            <label>Senha</label>
+            {{ form.senha() }}
+
+            {{ form.botao_confirmacao() }}
+        </form>
+
+        <p>Novo por aqui? <a href="{{ url_for('criarconta') }}">Criar uma conta</a></p>
+    </section>
+</main>
+
+{% endblock %}
+
+</body>
+</html>

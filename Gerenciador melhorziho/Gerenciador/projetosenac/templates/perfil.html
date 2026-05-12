@@ -1,0 +1,84 @@
+{% extends "login.html" %}
+
+{% block titulo %}
+Perfil
+{% endblock %}
+
+{% block body %}
+<div class="perfil-container">
+    <h2>Bem-vindo, {{ usuario.username }}</h2>
+
+    <a href="{{ url_for('perfil', id_usuario=usuario.id) }}">Atualizar Página</a>
+    <a href="{{ url_for('feed') }}">Ver Feed</a>
+    {% if current_user.is_admin %}
+<a href="{{ url_for('criarconta') }}">➕ Criar conta de funcionário</a>
+{% endif %}
+    <a href="{{ url_for('perfil', id_usuario=usuario.id) }}">Atualizar Página</a>
+<a href="{{ url_for('feed') }}">Ver Feed</a>
+{% if current_user.is_admin %}
+<a href="{{ url_for('criarconta') }}">➕ Criar conta de funcionário</a>
+{% endif %}
+    <br><br>
+
+    {% if form %}
+    <h4>Enviar Foto</h4>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <input type="hidden" name="form_type" value="foto">
+        {{ form.foto }}
+        {{ form.botao_confirmacao }}
+    </form>
+    {% endif %}
+
+    {% if form_tarefa %}
+    <br>
+    <h4>Criar Tarefa</h4>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form_tarefa.csrf_token }}
+        <input type="hidden" name="form_type" value="tarefa">
+        <div>{{ form_tarefa.titulo.label }} {{ form_tarefa.titulo }}</div>
+        <div>{{ form_tarefa.descricao.label }} {{ form_tarefa.descricao }}</div>
+        <div>{{ form_tarefa.anexo.label }} {{ form_tarefa.anexo }}</div>
+        {{ form_tarefa.botao_confirmacao }}
+    </form>
+    {% endif %}
+
+    <br>
+    <h4>Minhas Tarefas</h4>
+    {% for tarefa in tarefas %}
+    {% set ja_concluiu = current_user.id | string in tarefa.concluida_por.split(',') %}
+    <div class="tarefa-item {% if ja_concluiu %}tarefa-concluida{% endif %}">
+        <strong>{{ tarefa.titulo }}</strong>
+        <p>{{ tarefa.descricao }}</p>
+        {% if tarefa.anexo %}
+        <img src="{{ url_for('static', filename='fotos_posts/' + tarefa.anexo) }}"
+             alt="Anexo" style="max-width: 200px;">
+        {% endif %}
+        <small>{{ tarefa.data_criacao.strftime('%d/%m/%Y') }}</small>
+        <br>
+        <form method="POST" action="{{ url_for('concluir_tarefa', id_tarefa=tarefa.id) }}">
+            {{ form.csrf_token }}
+            <button type="submit">
+                {% if ja_concluiu %}✅ Concluída{% else %}⬜ Marcar como concluída{% endif %}
+            </button>
+        </form>
+    </div>
+    {% else %}
+    <p>Nenhuma tarefa atribuída ainda. Veja o <a href="{{ url_for('feed') }}">Feed</a> para pegar tarefas!</p>
+    {% endfor %}
+
+    <br>
+    <div class="fotos-grid">
+        {% for foto in usuario.fotos %}
+        <div class="foto-item">
+            <img src="{{ url_for('static', filename='fotos_posts/' + foto.imagem) }}"
+                 alt="Foto de {{ usuario.username }}">
+        </div>
+        {% else %}
+        <p>Nenhuma foto publicada ainda.</p>
+        {% endfor %}
+    </div>
+
+    <a href="{{ url_for('logout') }}" class="btn-sair">Sair</a>
+</div>
+{% endblock %}

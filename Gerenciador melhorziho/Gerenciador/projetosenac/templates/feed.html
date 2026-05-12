@@ -1,0 +1,48 @@
+{% extends "login.html" %}
+
+{% block titulo %}
+Feed - PyNotes
+{% endblock %}
+
+{% block body %}
+<div class="feed-container">
+    <h2>Feed</h2>
+
+    {# Tarefas disponíveis #}
+    {% if tarefas_disponiveis %}
+    <div class="tarefas-disponiveis">
+        <h4>📋 Tarefas Disponíveis</h4>
+        {% for tarefa in tarefas_disponiveis %}
+        <div class="tarefa-item">
+            <strong>{{ tarefa.titulo }}</strong>
+            <p>{{ tarefa.descricao }}</p>
+            <small>Criada em {{ tarefa.data_criacao.strftime('%d/%m/%Y') }}</small>
+            <br>
+            <form method="POST" action="{{ url_for('atribuir_tarefa', id_tarefa=tarefa.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ form_csrf }}">
+                <button type="submit">📌 Atribuir a mim</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+    {% endif %}
+
+    {# Feed de fotos #}
+    <div class="fotos-grid">
+        {% for item in lista_fotos %}
+        <div class="foto-item">
+            <a href="{{ url_for('perfil', id_usuario=item.usuario.id) }}">
+                <img
+                    src="{{ url_for('static', filename='fotos_posts/' + item.imagem) }}"
+                    alt="Foto de {{ item.usuario.username }}"
+                >
+                <small>@{{ item.usuario.username }}</small>
+            </a>
+        </div>
+        {% else %}
+        <p>Nenhuma foto encontrada.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
