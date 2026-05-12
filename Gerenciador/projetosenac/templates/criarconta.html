@@ -1,0 +1,46 @@
+{% extends "login.html" %}
+
+{% block titulo %}
+Criar Conta
+{% endblock %}
+
+{% block body %}
+
+<h2>Criar Conta</h2>
+
+<form action="{{ url_for('criarconta') }}" method="POST">
+    {{ form.hidden_tag() }}
+
+    <p>Usuário</p>
+    {{ form.username() }}
+    {% for erro in form.username.errors %}
+        <span style="color:red">{{ erro }}</span>
+    {% endfor %}
+
+    <p>Email</p>
+    {{ form.email() }}
+    {% for erro in form.email.errors %}
+        <span style="color:red">{{ erro }}</span>
+    {% endfor %}
+
+    <p>Senha</p>
+    {{ form.senha() }}
+    {% for erro in form.senha.errors %}
+        <span style="color:red">{{ erro }}</span>
+    {% endfor %}
+
+    <p>Confirmar Senha</p>
+    {{ form.confirmacao_senha() }}
+    {% for erro in form.confirmacao_senha.errors %}
+        <span style="color:red">{{ erro }}</span>
+    {% endfor %}
+
+    <br>
+    {{ form.botao_confirmacao() }}
+</form>
+
+<br>
+
+<a href="{{ url_for('homepage') }}">Voltar</a>
+
+{% endblock %}
