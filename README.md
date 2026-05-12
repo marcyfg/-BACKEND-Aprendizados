@@ -18,9 +18,7 @@
 ## ⋆˚࿔ 𖦹 -😺 Sobre este repositório ✮
 
 Este repositório é o registro da minha jornada no backend, reunindo os projetos desenvolvidos durante o curso **SENAC** e todo o aprendizado que vou acumulando ao longo do caminho.
-
-Cada pasta é um capítulo novo. Cada commit, um passo à frente.
-
+Projetos e estudos de backend desenvolvidos durante o curso SENAC, será atualizado continuamente conforme evoluo como dev.
 ---
 
 ##  ⋆˚࿔ 𖦹 -📂 Estrutura das Pastas ✮
@@ -49,7 +47,7 @@ Cada pasta é um capítulo novo. Cada commit, um passo à frente.
 
 ---
 
-##  ⋆˚࿔ 𖦹 -🐱 Progresso Dev ✮
+##  ⋆˚࿔ 𖦹 -📌 Progresso ✮
 
 <div align="center">
 
@@ -58,22 +56,12 @@ Cada pasta é um capítulo novo. Cada commit, um passo à frente.
 | Entender lógica de programação | ✅ Concluído | 😼 |
 | Primeiros projetos SENAC | 🔄 Em andamento | ![cat coding](https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif) |
 | Backend com banco de dados | 📚 Estudando | |
-| APIs e integrações | 🔜 Em breve | |
-| Deploy e infraestrutura | 🌙 Sonhando | |
+| APIs e integrações | Em breve | |
+| Deploy e infraestrutura | Em breve | |
 
 </div>
 
 ---
-
-## ⋆˚࿔ 𖦹 -📌 Como este repo funciona ✮
-
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/backend-senac-evolucao.git
-
-# Entre na pasta desejada e explore!
-cd senac/
-```
 
 > Cada pasta contém seu próprio `README.md` com explicações do projeto ou estudo específico.
 
