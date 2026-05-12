@@ -1,0 +1,106 @@
+<!-- HEADER -->
+<div align="center">
+
+![Cat typing](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
+
+# ✮ Backend — Projetos SENAC & Evolução ⋆˚࿔ .✮ ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧
+
+
+![Status](https://img.shields.io/badge/status-em%20construção-orange?style=flat-square)
+![Linguagens](https://img.shields.io/badge/linguagens-em%20expansão-blueviolet?style=flat-square)
+![Commits](https://img.shields.io/badge/commits-com%20café-brown?style=flat-square)
+
+</div>
+
+---
+
+## ⋆˚࿔ 𖦹 -😺 Sobre este repositório ✮
+
+Este repositório é o registro da minha jornada no backend, reunindo os projetos desenvolvidos durante o curso **SENAC** e todo o aprendizado que vou acumulando ao longo do caminho.
+
+Cada pasta é um capítulo novo. Cada commit, um passo à frente.
+
+---
+
+##  ⋆˚࿔ 𖦹 -📂 Estrutura das Pastas ✮
+
+```
+✮ backend-senac-evolucao ✮
+ ┣ 📁 senac/          → Projetos e atividades do curso SENAC
+ ┣ 📁 estudos/        → Experimentações e exercícios livres
+ ┣ 📁 projetos/       → Projetos pessoais em desenvolvimento
+ ┗ 📄 README.md
+```
+
+---
+
+## ⋆˚࿔ 𖦹 -🛠️ Tecnologias que estou usando / estudando ✮
+
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+
+</div>
+
+---
+
+##  ⋆˚࿔ 𖦹 -🐱 Progresso Dev ✮
+
+<div align="center">
+
+| Fase | Status | Gif do sentimento |
+|------|--------|-------------------|
+| Entender lógica de programação | ✅ Concluído | 😼 |
+| Primeiros projetos SENAC | 🔄 Em andamento | ![cat coding](https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif) |
+| Backend com banco de dados | 📚 Estudando | |
+| APIs e integrações | 🔜 Em breve | |
+| Deploy e infraestrutura | 🌙 Sonhando | |
+
+</div>
+
+---
+
+## ⋆˚࿔ 𖦹 -📌 Como este repo funciona ✮
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/backend-senac-evolucao.git
+
+# Entre na pasta desejada e explore!
+cd senac/
+```
+
+> Cada pasta contém seu próprio `README.md` com explicações do projeto ou estudo específico.
+
+---
+
+## ⋆˚࿔ 𖦹 -📈 Evolução ✮
+
+<div align="center">
+
+![Cat thinking](https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif)
+
+*Este repositório é atualizado constantemente conforme novos projetos são criados e novas habilidades são desenvolvidas.*
+
+</div>
+
+---
+
+## ⋆˚࿔ 𖦹 -👩🏻‍💻 Sobre mim ✮
+
+Estudante de tecnologia em constante evolução, aprendendo backend com o SENAC e além.  
+Acredito que cada erro é um gatinho tropeçando — graciosamente — em direção ao próximo nível.
+
+---
+
+<div align="center">
+
+![Cat bye](https://media.giphy.com/media/42D3CxaINsAFemFuId/giphy.gif)
+
+**Até a proxima!!! (๑ᵔ⤙ᵔ๑) ✮**
+
+</div>
