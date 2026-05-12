@@ -63,10 +63,6 @@ Projetos e estudos de backend desenvolvidos durante o curso SENAC, será atualiz
 
 ---
 
-> Cada pasta contém seu próprio `README.md` com explicações do projeto ou estudo específico.
-
----
-
 ## ⋆˚࿔ 𖦹 -📈 Evolução ✮
 
 <div align="center">
@@ -81,8 +77,7 @@ Projetos e estudos de backend desenvolvidos durante o curso SENAC, será atualiz
 
 ## ⋆˚࿔ 𖦹 -👩🏻‍💻 Sobre mim ✮
 
-Estudante de tecnologia em constante evolução, aprendendo backend com o SENAC e além.  
-Acredito que cada erro é um gatinho tropeçando — graciosamente — em direção ao próximo nível.
+OII! Sou a Marcelly (ou Marcy), sou estudante de tecnologia no Senac e estou em constante evolução, aprendo sempre algo novo <3
 
 ---
 
