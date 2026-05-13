@@ -1,84 +1,117 @@
 {% extends "login.html" %}
-
-{% block titulo %}
-Perfil
-{% endblock %}
+{% block titulo %}Perfil — PyNotes{% endblock %}
 
 {% block body %}
 <div class="perfil-container">
-    <h2>Bem-vindo, {{ usuario.username }}</h2>
 
-    <a href="{{ url_for('perfil', id_usuario=usuario.id) }}">Atualizar Página</a>
-    <a href="{{ url_for('feed') }}">Ver Feed</a>
-    {% if current_user.is_admin %}
-<a href="{{ url_for('criarconta') }}">➕ Criar conta de funcionário</a>
-{% endif %}
-    <a href="{{ url_for('perfil', id_usuario=usuario.id) }}">Atualizar Página</a>
-<a href="{{ url_for('feed') }}">Ver Feed</a>
-{% if current_user.is_admin %}
-<a href="{{ url_for('criarconta') }}">➕ Criar conta de funcionário</a>
-{% endif %}
-    <br><br>
+    <h2>{{ usuario.username }}</h2>
+
+    <div class="perfil-nav">
+        <a href="{{ url_for('perfil', token=usuario.token) }}" class="btn">↻ Atualizar</a>
+        <a href="{{ url_for('feed') }}" class="btn">Feed</a>
+        {% if current_user.is_admin %}
+            <a href="{{ url_for('criarconta') }}" class="btn">+ Criar conta</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}" class="btn-sair">Sair</a>
+    </div>
 
     {% if form %}
-    <h4>Enviar Foto</h4>
-    <form method="POST" enctype="multipart/form-data">
-        {{ form.csrf_token }}
-        <input type="hidden" name="form_type" value="foto">
-        {{ form.foto }}
-        {{ form.botao_confirmacao }}
-    </form>
+    <div class="card" style="margin-bottom:1.5rem">
+        <h4>📷 Enviar Foto</h4>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <input type="hidden" name="form_type" value="foto">
+            <div class="form-group">{{ form.foto }}</div>
+            {{ form.botao_confirmacao() }}
+        </form>
+    </div>
     {% endif %}
 
     {% if form_tarefa %}
-    <br>
-    <h4>Criar Tarefa</h4>
-    <form method="POST" enctype="multipart/form-data">
-        {{ form_tarefa.csrf_token }}
-        <input type="hidden" name="form_type" value="tarefa">
-        <div>{{ form_tarefa.titulo.label }} {{ form_tarefa.titulo }}</div>
-        <div>{{ form_tarefa.descricao.label }} {{ form_tarefa.descricao }}</div>
-        <div>{{ form_tarefa.anexo.label }} {{ form_tarefa.anexo }}</div>
-        {{ form_tarefa.botao_confirmacao }}
-    </form>
-    {% endif %}
-
-    <br>
-    <h4>Minhas Tarefas</h4>
-    {% for tarefa in tarefas %}
-    {% set ja_concluiu = current_user.id | string in tarefa.concluida_por.split(',') %}
-    <div class="tarefa-item {% if ja_concluiu %}tarefa-concluida{% endif %}">
-        <strong>{{ tarefa.titulo }}</strong>
-        <p>{{ tarefa.descricao }}</p>
-        {% if tarefa.anexo %}
-        <img src="{{ url_for('static', filename='fotos_posts/' + tarefa.anexo) }}"
-             alt="Anexo" style="max-width: 200px;">
-        {% endif %}
-        <small>{{ tarefa.data_criacao.strftime('%d/%m/%Y') }}</small>
-        <br>
-        <form method="POST" action="{{ url_for('concluir_tarefa', id_tarefa=tarefa.id) }}">
-            {{ form.csrf_token }}
-            <button type="submit">
-                {% if ja_concluiu %}✅ Concluída{% else %}⬜ Marcar como concluída{% endif %}
-            </button>
+    <div class="card" style="margin-bottom:1.5rem">
+        <h4>📋 Criar Nova Tarefa</h4>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form_tarefa.csrf_token }}
+            <input type="hidden" name="form_type" value="tarefa">
+            <div class="form-group">
+                {{ form_tarefa.titulo.label }}
+                {{ form_tarefa.titulo(placeholder="Título da tarefa") }}
+            </div>
+            <div class="form-group">
+                {{ form_tarefa.descricao.label }}
+                {{ form_tarefa.descricao(placeholder="Descreva a tarefa...") }}
+            </div>
+            <div class="form-group">
+                {{ form_tarefa.anexo.label }}
+                {{ form_tarefa.anexo }}
+            </div>
+            {{ form_tarefa.botao_confirmacao() }}
         </form>
     </div>
+    {% endif %}
+
+    <h4>
+        {% if eh_admin_vendo %}Tarefas de {{ usuario.username }}
+        {% else %}Minhas Tarefas{% endif %}
+    </h4>
+
+    {% for tarefa in tarefas %}
+        {% set ja_concluiu = tarefa.id_usuario | string in tarefa.concluida_por.split(',') %}
+        <div class="tarefa-item {% if ja_concluiu %}tarefa-concluida{% endif %}">
+            <strong>{{ tarefa.titulo }}</strong>
+            {% if tarefa.descricao %}<p>{{ tarefa.descricao }}</p>{% endif %}
+            {% if tarefa.anexo %}
+                <img src="{{ url_for('static', filename='fotos_posts/' + tarefa.anexo) }}"
+                     alt="Anexo" style="max-width:200px; border-radius:10px; margin:8px 0; display:block">
+            {% endif %}
+            <small>{{ tarefa.data_criacao.strftime('%d/%m/%Y') }}</small>
+
+            <form method="POST" action="{{ url_for('concluir_tarefa', id_tarefa=tarefa.id) }}">
+                {{ form.csrf_token }}
+                <button type="submit">
+                    {% if ja_concluiu %}✅ Concluída{% else %}⬜ Marcar como concluída{% endif %}
+                </button>
+            </form>
+
+            {% if current_user.is_admin %}
+            <div class="admin-actions">
+                <form method="POST" action="{{ url_for('admin_desatribuir_tarefa', id_tarefa=tarefa.id) }}">
+                    {{ form.csrf_token }}
+                    <button type="submit" class="btn-danger">🗑 Desatribuir</button>
+                </form>
+                <form method="POST" action="{{ url_for('admin_atribuir_tarefa', id_tarefa=tarefa.id) }}" style="display:flex;gap:6px;align-items:center">
+                    {{ form.csrf_token }}
+                    <select name="id_usuario">
+                        {% for u in usuarios_todos %}
+                            <option value="{{ u.id }}" {% if u.id == tarefa.id_usuario %}selected{% endif %}>{{ u.username }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">🔁 Reatribuir</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
     {% else %}
-    <p>Nenhuma tarefa atribuída ainda. Veja o <a href="{{ url_for('feed') }}">Feed</a> para pegar tarefas!</p>
+        <div class="card" style="text-align:center; color:var(--aero-muted); padding:2rem">
+            Nenhuma tarefa atribuída ainda.
+            {% if not eh_admin_vendo %}
+                Veja o <a href="{{ url_for('feed') }}">Feed</a> para pegar tarefas!
+            {% endif %}
+        </div>
     {% endfor %}
 
+    {% if usuario.fotos %}
     <br>
+    <h4>🖼 Fotos</h4>
     <div class="fotos-grid">
         {% for foto in usuario.fotos %}
         <div class="foto-item">
             <img src="{{ url_for('static', filename='fotos_posts/' + foto.imagem) }}"
                  alt="Foto de {{ usuario.username }}">
         </div>
-        {% else %}
-        <p>Nenhuma foto publicada ainda.</p>
         {% endfor %}
     </div>
+    {% endif %}
 
-    <a href="{{ url_for('logout') }}" class="btn-sair">Sair</a>
 </div>
 {% endblock %}

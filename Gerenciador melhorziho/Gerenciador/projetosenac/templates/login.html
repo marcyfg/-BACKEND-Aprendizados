@@ -5,61 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
-    <title>
-        {% block titulo %}Gerenciador{% endblock %}
-    </title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block titulo %}PyNotes{% endblock %}</title>
 </head>
 <body>
 
 <nav>
     <div class="nav-brand">
         <span>PyNotes</span>
-        <small>Suas notas e tarefas💌</small>
+        <small>suas notas e tarefas 💌</small>
     </div>
     <ul>
-        <li><a href="#">Desings</a></li>
-        <li><a href="#">Dicas</a></li>
+        {% if current_user and current_user.is_authenticated %}
+            <li><a href="{{ url_for('feed') }}">Feed</a></li>
+            <li><a href="{{ url_for('perfil', token=current_user.token) }}">Perfil</a></li>
+            {% if current_user.is_admin %}
+                <li><a href="{{ url_for('criarconta') }}">+ Novo usuário</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('logout') }}" class="btn-sair">Sair</a></li>
+        {% endif %}
     </ul>
 </nav>
 
-<hr>
-
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
+        <div style="max-width:700px; margin:0 auto; padding:0 1.5rem">
         {% for categoria, mensagem in messages %}
             <div class="flash {{ categoria }}">{{ mensagem }}</div>
         {% endfor %}
+        </div>
     {% endif %}
 {% endwith %}
 
 {% block body %}
 
-<header>
-    <h1>Bem-vindo(a) de volta, querido(a) cliente! ( •̀ ω •́ )✧</h1>
-</header>
-
-<main>
-    <section class="login">
-        <h2>Entrar na conta</h2>
-
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="nav-brand" style="justify-content:center; margin-bottom:1.5rem">
+            <span style="font-size:2rem">PyNotes</span>
+        </div>
+        <header>
+            <h1>Bem-vindo(a) de volta! ( •̀ ω •́ )✧</h1>
+        </header>
         <form action="{{ url_for('homepage') }}" method="POST">
             {{ form.hidden_tag() }}
-
-            <label>E-mail</label>
-            {{ form.email() }}
-
-            <label>Senha</label>
-            {{ form.senha() }}
-
-            {{ form.botao_confirmacao() }}
+            <div class="form-group">
+                <label>E-mail</label>
+                {{ form.email(placeholder="seu@email.com") }}
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                {{ form.senha(placeholder="••••••••") }}
+            </div>
+            <div style="margin-top:1.2rem">
+                {{ form.botao_confirmacao() }}
+            </div>
         </form>
-
-        <p>Novo por aqui? <a href="{{ url_for('criarconta') }}">Criar uma conta</a></p>
-    </section>
-</main>
+    </div>
+</div>
 
 {% endblock %}
-
 </body>
 </html>

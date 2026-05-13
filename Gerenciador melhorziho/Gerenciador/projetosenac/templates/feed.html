@@ -1,47 +1,83 @@
 {% extends "login.html" %}
-
-{% block titulo %}
-Feed - PyNotes
-{% endblock %}
+{% block titulo %}Feed — PyNotes{% endblock %}
 
 {% block body %}
 <div class="feed-container">
     <h2>Feed</h2>
 
-    {# Tarefas disponíveis #}
     {% if tarefas_disponiveis %}
     <div class="tarefas-disponiveis">
         <h4>📋 Tarefas Disponíveis</h4>
         {% for tarefa in tarefas_disponiveis %}
         <div class="tarefa-item">
             <strong>{{ tarefa.titulo }}</strong>
-            <p>{{ tarefa.descricao }}</p>
+            {% if tarefa.descricao %}<p>{{ tarefa.descricao }}</p>{% endif %}
             <small>Criada em {{ tarefa.data_criacao.strftime('%d/%m/%Y') }}</small>
-            <br>
+
             <form method="POST" action="{{ url_for('atribuir_tarefa', id_tarefa=tarefa.id) }}">
-                <input type="hidden" name="csrf_token" value="{{ form_csrf }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit">📌 Atribuir a mim</button>
             </form>
+
+            {% if current_user.is_admin %}
+            <form method="POST" action="{{ url_for('admin_atribuir_tarefa', id_tarefa=tarefa.id) }}" style="display:flex;gap:6px;align-items:center;margin-top:6px">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <select name="id_usuario">
+                    {% for u in usuarios %}
+                        <option value="{{ u.id }}">{{ u.username }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">👤 Atribuir a usuário</button>
+            </form>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
     <hr>
     {% endif %}
 
-    {# Feed de fotos #}
+    {% if current_user.is_admin and todas_tarefas %}
+    <div class="tarefas-atribuidas">
+        <h4>🛠 Tarefas Atribuídas (admin)</h4>
+        {% for tarefa in todas_tarefas %}
+        <div class="tarefa-item">
+            <strong>{{ tarefa.titulo }}</strong>
+            <small> → {{ tarefa.usuario.username }}</small>
+            {% if tarefa.descricao %}<p>{{ tarefa.descricao }}</p>{% endif %}
+
+            <div class="admin-actions">
+                <form method="POST" action="{{ url_for('admin_desatribuir_tarefa', id_tarefa=tarefa.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn-danger">🗑 Desatribuir</button>
+                </form>
+                <form method="POST" action="{{ url_for('admin_atribuir_tarefa', id_tarefa=tarefa.id) }}" style="display:flex;gap:6px;align-items:center">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <select name="id_usuario">
+                        {% for u in usuarios %}
+                            <option value="{{ u.id }}" {% if u.id == tarefa.id_usuario %}selected{% endif %}>{{ u.username }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">🔁 Reatribuir</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+    {% endif %}
+
+    <h4>👥 Usuários</h4>
     <div class="fotos-grid">
         {% for item in lista_fotos %}
         <div class="foto-item">
-            <a href="{{ url_for('perfil', id_usuario=item.usuario.id) }}">
-                <img
-                    src="{{ url_for('static', filename='fotos_posts/' + item.imagem) }}"
-                    alt="Foto de {{ item.usuario.username }}"
-                >
+            <a href="{{ url_for('perfil', token=item.usuario.token) }}">
+                <img src="{{ url_for('static', filename='fotos_posts/' + item.imagem) }}"
+                     alt="Foto de {{ item.usuario.username }}">
                 <small>@{{ item.usuario.username }}</small>
             </a>
         </div>
         {% else %}
-        <p>Nenhuma foto encontrada.</p>
+        <p style="color:var(--aero-muted)">Nenhuma foto encontrada.</p>
         {% endfor %}
     </div>
 </div>

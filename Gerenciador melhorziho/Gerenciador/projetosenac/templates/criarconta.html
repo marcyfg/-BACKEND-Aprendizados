@@ -1,46 +1,51 @@
 {% extends "login.html" %}
-
-{% block titulo %}
-Criar Conta
-{% endblock %}
+{% block titulo %}Criar Conta — PyNotes{% endblock %}
 
 {% block body %}
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2 style="justify-content:center; margin-bottom:1.4rem">Criar Conta</h2>
 
-<h2>Criar Conta</h2>
+        <form action="{{ url_for('criarconta') }}" method="POST">
+            {{ form.hidden_tag() }}
 
-<form action="{{ url_for('criarconta') }}" method="POST">
-    {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label>Usuário</label>
+                {{ form.username(placeholder="nome de usuário") }}
+                {% for erro in form.username.errors %}
+                    <span style="color:red">{{ erro }}</span>
+                {% endfor %}
+            </div>
 
-    <p>Usuário</p>
-    {{ form.username() }}
-    {% for erro in form.username.errors %}
-        <span style="color:red">{{ erro }}</span>
-    {% endfor %}
+            <div class="form-group">
+                <label>E-mail</label>
+                {{ form.email(placeholder="email@exemplo.com") }}
+                {% for erro in form.email.errors %}
+                    <span style="color:red">{{ erro }}</span>
+                {% endfor %}
+            </div>
 
-    <p>Email</p>
-    {{ form.email() }}
-    {% for erro in form.email.errors %}
-        <span style="color:red">{{ erro }}</span>
-    {% endfor %}
+            <div class="form-group">
+                <label>Senha</label>
+                {{ form.senha(placeholder="••••••••") }}
+                {% for erro in form.senha.errors %}
+                    <span style="color:red">{{ erro }}</span>
+                {% endfor %}
+            </div>
 
-    <p>Senha</p>
-    {{ form.senha() }}
-    {% for erro in form.senha.errors %}
-        <span style="color:red">{{ erro }}</span>
-    {% endfor %}
+            <div class="form-group">
+                <label>Confirmar Senha</label>
+                {{ form.confirmacao_senha(placeholder="••••••••") }}
+                {% for erro in form.confirmacao_senha.errors %}
+                    <span style="color:red">{{ erro }}</span>
+                {% endfor %}
+            </div>
 
-    <p>Confirmar Senha</p>
-    {{ form.confirmacao_senha() }}
-    {% for erro in form.confirmacao_senha.errors %}
-        <span style="color:red">{{ erro }}</span>
-    {% endfor %}
-
-    <br>
-    {{ form.botao_confirmacao() }}
-</form>
-
-<br>
-
-<a href="{{ url_for('homepage') }}">Voltar</a>
-
+            <div style="margin-top:1.2rem; display:flex; gap:10px; align-items:center">
+                {{ form.botao_confirmacao() }}
+                <a href="{{ url_for('feed') }}" class="btn">← Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

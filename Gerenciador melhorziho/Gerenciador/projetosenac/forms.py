@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError, Optional
 from projetosenac.models import Usuario
 
@@ -25,7 +25,7 @@ class FormCriarConta(FlaskForm):
 
 
 class FormFoto(FlaskForm):
-    foto = FileField("Foto", validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'webp'])])  # ← FileRequired removido
+    foto = FileField("Foto", validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'webp'])])
     botao_confirmacao = SubmitField("Enviar foto")
 
 
@@ -34,3 +34,9 @@ class FormTarefa(FlaskForm):
     descricao = TextAreaField("Descrição", validators=[Optional()])
     anexo = FileField("Anexo (opcional)", validators=[Optional(), FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'pdf', 'webp'])])
     botao_confirmacao = SubmitField("Criar Tarefa")
+
+
+class FormAtribuirTarefa(FlaskForm):
+    """Usado pelo admin para atribuir uma tarefa a um usuário específico."""
+    id_usuario = SelectField("Atribuir a", coerce=int, validators=[DataRequired()])
+    botao_confirmacao = SubmitField("Atribuir")
