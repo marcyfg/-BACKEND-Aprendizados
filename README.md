@@ -15,7 +15,7 @@
 
 ---
 
-## ⋆˚࿔ 𖦹 -😺 Sobre este repositório ✮
+## ⋆˚࿔ 𖦹 -👽 Sobre este repositório ✮
 
 Este repositório é o registro da minha jornada no backend, reunindo os projetos desenvolvidos durante o curso **SENAC** e todo o aprendizado que vou acumulando ao longo do caminho.
 Projetos e estudos de backend desenvolvidos durante o curso SENAC, será atualizado continuamente conforme evoluo como dev.
@@ -56,7 +56,7 @@ Projetos e estudos de backend desenvolvidos durante o curso SENAC, será atualiz
 | Entender lógica de programação | ✅ Concluído | 😼 |
 | Primeiros projetos SENAC | 🔄 Em andamento | ![cat coding](https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif) |
 | Backend com banco de dados | 📚 Estudando | |
-| APIs e integrações | Em breve | |
+| APIs e integrações | 📚 Estudando  | |
 | Deploy e infraestrutura | Em breve | |
 
 </div>
@@ -82,8 +82,9 @@ OII! Sou a Marcelly (ou Marcy), sou estudante de tecnologia no Senac e estou em 
 ---
 
 <div align="center">
+ 
+<img width="480" height="354" alt="giphy (1)" src="https://github.com/user-attachments/assets/3b864448-f5a8-45ba-85ae-e3ce82dd80dd" />
 
-![Cat bye](https://media.giphy.com/media/42D3CxaINsAFemFuId/giphy.gif)
 
 **Até a proxima!!! (๑ᵔ⤙ᵔ๑) ✮**
 
