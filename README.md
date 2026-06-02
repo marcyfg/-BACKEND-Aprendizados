@@ -1,7 +1,7 @@
 <!-- HEADER -->
 <div align="center">
 
-![Cat typing](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
+<img width="533" height="300" alt="giphy" src="https://github.com/user-attachments/assets/ac4a7337-eca4-4d91-a221-68b328977e37" />
 
 # ✮ Backend — Projetos SENAC & Evolução ⋆˚࿔ .✮ 
 ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧
