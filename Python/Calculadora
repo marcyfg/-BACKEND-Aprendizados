@@ -1,0 +1,108 @@
+# Importando o módulo sys (usado para controlar a execução do programa)
+import sys
+
+# Importando apenas os componentes que estamos utilizando
+from PySide6.QtWidgets import(
+    QApplication,   # Controla toda a aplicação
+    QWidget,        # Janela simples (base da interface)
+    QPushButton,    # Botão Clicáveis
+    QGridLayout,    # Layout em formado de grade (linhas e colunas)
+    QLabel,         # Exibe textos na tela
+    QLineEdit,      # Campo de entrada de texto
+)
+
+def calcule():
+    try:
+        # Pega o texto digitadi e converte para o número
+        n1 = float(num1.text())
+        n2 = float(num2.text())
+
+        # realiza a operacao
+        calc = n1 + n2
+        resultado.setText(f"Resultado: {calc}")
+    except:
+        resultado.setText("ERRO!!! Digite somente números.")
+
+# ============================================
+# CRIA A APLICAÇÃO
+# ============================================
+
+# QApplication é responsável por iniciar a gerenciar o programa
+app = QApplication(sys.argv)
+
+# ============================================
+# CRIA A JANELA PRINCIPAL
+# ============================================
+
+# QWidget será nossa janela (forma mais simples de interface)
+janela = QWidget()
+
+# Define o título da janela
+janela.setWindowTitle('Calculadora Simples')
+
+# ============================================
+# CRIA LAYOUT
+# ============================================
+
+# QGridLayout organiza os elementos em linhas e colunas (tipo tabela)
+layout = QGridLayout()
+
+# ============================================
+# CRIA CAMPOS DE ENTRADA
+# ============================================
+
+# QLineEdit para usar para o primeiro e segundo número
+# Aqui vai ser lido ambos os números
+num1 = QLineEdit()
+num2 = QLineEdit()
+
+num1.setPlaceholderText('Número 1')
+num2.setPlaceholderText('Número 2')
+
+# ============================================
+# CRIA LABEL RESULTADO
+# ============================================
+
+# QLabel serve para mostrar informações na tela
+# Aqui será usado para exibir o resultado
+resultado = QLabel('Resultado: ')
+
+# ============================================
+# CRIA BOTÃO
+# ============================================
+
+# Cria um notão com o texto "CALCULE"
+botao = QPushButton('Calcule')
+
+botao.clicked.connect(calcule)
+
+# ============================================
+# ADICIONAR ELEMENTOS
+# ============================================
+# Adiciona os campos na linha 0
+layout.addWidget(num1, 0, 0)
+layout.addWidget(num2, 0, 1)
+
+# Adiciona o botão na linha 1
+layout.addWidget(botao, 1, 0, 1, 2)
+
+# Adiciona o resultado na linha 2
+layout.addWidget(resultado, 2, 0, 2, 2)
+
+# ============================================
+# APLICA O LAYOUT NA JANELA
+# ============================================
+
+# Defino que a janela vai usar o layout que criamos
+janela.setLayout(layout)
+
+# ============================================
+# EXECUTA O PROGRAMA
+# ============================================
+
+# Exibe a janela na tela
+janela.show()
+
+# Mantém o programa rodando até o usuário fechar
+sys.exit(app.exec())
+ 
